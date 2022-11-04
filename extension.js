@@ -22,28 +22,7 @@ const { Gio, GLib, IBus } = imports.gi
 const { getInputSourceManager } = imports.ui.status.keyboard
 
 class Extension {
-	constructor() {
-		let ifaceXml = `
-		<node>
-			<interface name="org.gnome.Shell.Extensions.IbusSwitcher">
-				<method name="SourceSize">
-					<arg direction="out" name="size" type="u"/>
-				</method>
-				<method name="CurrentSource">
-					<arg direction="out" name="index" type="s"/>
-				</method>
-				<method name="SwitchSource">
-					<arg direction="in" name="index" type="u"/>
-					<arg direction="in" name="mode" type="s"/>
-					<arg direction="out" name="oldSource" type="s"/>
-				</method>
-			</interface>
-		</node>
-		`
-		this._dbus = Gio.DBusExportedObject.wrapJSObject(ifaceXml, this)
-		this._inputSourceManager = getInputSourceManager()
-		this._ibusManager = this._inputSourceManager._ibusManager
-	}
+	constructor() {}
 
 	/**
 	 * @param {any} condition
@@ -53,11 +32,12 @@ class Extension {
 	async waitUntil(condition, interval = 20) {
 		return new Promise(resolve => {
 			let id = setInterval(() => {
-				if (condition()) {
+				if (id != this.timer || condition()) {
 					resolve()
 					clearInterval(id)
 				};
 			}, interval)
+			this.timer = id
 		})
 	}
 
@@ -135,12 +115,41 @@ class Extension {
 	}
 
 	enable() {
+		let ifaceXml = `
+		<node>
+			<interface name="org.gnome.Shell.Extensions.IbusSwitcher">
+				<method name="SourceSize">
+					<arg direction="out" name="size" type="u"/>
+				</method>
+				<method name="CurrentSource">
+					<arg direction="out" name="index" type="s"/>
+				</method>
+				<method name="SwitchSource">
+					<arg direction="in" name="index" type="u"/>
+					<arg direction="in" name="mode" type="s"/>
+					<arg direction="out" name="oldSource" type="s"/>
+				</method>
+			</interface>
+		</node>
+		`
+		this._dbus = Gio.DBusExportedObject.wrapJSObject(ifaceXml, this)
+		this._inputSourceManager = getInputSourceManager()
+		this._ibusManager = this._inputSourceManager._ibusManager
 		this._dbus.export(Gio.DBus.session, "/org/gnome/Shell/Extensions/IbusSwitcher")
 	}
 
 	disable() {
-		this._dbus.flush()
-		this._dbus.unexport()
+		if (this.timer) {
+			clearInterval(this.timer)
+		}
+		this.timer = null
+		if (this._dbus) {
+			this._dbus.flush()
+			this._dbus.unexport()
+		}
+		this._dbus = null
+		this._inputSourceManager = null
+		this._ibusManager = null
 	}
 
 	/**

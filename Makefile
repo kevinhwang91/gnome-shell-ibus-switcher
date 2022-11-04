@@ -1,4 +1,4 @@
-UUID = ibus-switcher@kevin.hwang@live.com
+UUID = ibus-switcher@kevinhwang91.github.com
 FILES = extension.js metadata.json LICENSE README.md
 
 ifeq ($(strip $(DESTDIR)),)
