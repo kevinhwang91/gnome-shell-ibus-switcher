@@ -1,0 +1,10 @@
+{
+	"name": "Ibus Switcher",
+	"description": "Use d-bus to switch ibus source",
+	"uuid": "ibus-switcher@kevin.hwang@live.com",
+	"shell-version": [
+		"42",
+		"43"
+	],
+    "version": 999
+}
