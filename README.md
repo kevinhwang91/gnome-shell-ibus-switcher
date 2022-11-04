@@ -39,7 +39,9 @@ A gnome shell extension to use d-bus to switch ibus source.
 #### From source
 
 1. `git clone https://github.com/kevinhwang91/gnome-shell-ibus-switcher.git`
-2. `make install`
+2. `cd gnome-shell-ibus-switcher && make install`
+
+Run `gnome-extensions enable ibus-switcher@kevin.hwang@live.com` to enable the extension.
 
 ### Usage
 
