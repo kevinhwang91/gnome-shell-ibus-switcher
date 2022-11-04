@@ -34,7 +34,7 @@ A gnome shell extension to use d-bus to switch ibus source.
 
 #### The most recent official release from extensions.gnome.org
 
-[Visit Ibus-Swither at GNOME Extensions](https://extensions.gnome.org/extension/5494/ibus-switcher/)
+[Visit Ibus-Swither at GNOME Extensions](https://extensions.gnome.org/extension/5497/ibus-switcher/)
 
 #### From source
 
