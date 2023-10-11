@@ -1,11 +1,10 @@
 {
-	"name": "Ibus Switcher",
+	"name": "IBus Switcher",
 	"description": "Use d-bus to switch ibus source",
-    "url": "https://github.com/kevinhwang91/gnome-shell-ibus-switcher",
+	"url": "https://github.com/kevinhwang91/gnome-shell-ibus-switcher",
 	"uuid": "ibus-switcher@kevinhwang91.github.com",
 	"shell-version": [
-		"42",
-		"43"
+		"45"
 	],
-    "version": 999
+	"version": 2
 }

@@ -15,15 +15,14 @@
  *
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
+import Gio from 'gi://Gio'
+import GLib from 'gi://GLib'
+import IBus from 'gi://IBus'
 
-/* exported init */
+import * as Keyboard from 'resource:///org/gnome/shell/ui/status/keyboard.js'
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js'
 
-const { Gio, GLib, IBus } = imports.gi
-const { getInputSourceManager } = imports.ui.status.keyboard
-
-class Extension {
-	constructor() {}
-
+export default class IBusSwitcherExtension extends Extension {
 	/**
 	 * @param {any} condition
 	 * @param {number} interval
@@ -133,7 +132,7 @@ class Extension {
 		</node>
 		`
 		this._dbus = Gio.DBusExportedObject.wrapJSObject(ifaceXml, this)
-		this._inputSourceManager = getInputSourceManager()
+		this._inputSourceManager = Keyboard.getInputSourceManager()
 		this._ibusManager = this._inputSourceManager._ibusManager
 		this._dbus.export(Gio.DBus.session, "/org/gnome/Shell/Extensions/IbusSwitcher")
 	}
@@ -194,8 +193,4 @@ class Extension {
 	SourceSize() {
 		return Object.keys(this._inputSourceManager.inputSources).length
 	}
-}
-
-function init() {
-	return new Extension()
 }
