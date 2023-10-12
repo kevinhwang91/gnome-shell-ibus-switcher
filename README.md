@@ -26,7 +26,7 @@ A gnome shell extension to use d-bus to switch ibus source.
 
 ### Requirements
 
-- gnome-shell 42 or later
+- gnome-shell 45 or later
 
 > Run `gnome-shell --version` in command line to check version.
 
