@@ -4,7 +4,8 @@
 	"url": "https://github.com/kevinhwang91/gnome-shell-ibus-switcher",
 	"uuid": "ibus-switcher@kevinhwang91.github.com",
 	"shell-version": [
-		"45"
+		"45",
+		"46"
 	],
 	"version": 2
 }
